@@ -2,7 +2,7 @@
 
 """A Module that defines a Base Class"""
 
-# from models.__init__ import storage
+import models
 
 from uuid import uuid4
 from datetime import datetime
@@ -26,7 +26,7 @@ class BaseModel:
             self.id = str(uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
-            storage.new(self)
+            models.storage.new(self)
 
     def __str__(self):
         """A string representation of the Base Model class"""
@@ -40,7 +40,7 @@ class BaseModel:
         """A method that updates 'updated at' with the current datetime"""
         self.updated_at = datetime.now()
         # storage.new(self)
-        storage.save()
+        models.storage.save()
 
     def to_dict(self):
         """A module that returns a dictionary containing key/value of obj instance"""
