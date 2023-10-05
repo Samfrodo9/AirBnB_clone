@@ -150,17 +150,17 @@ class TestPlace_save(unittest.TestCase):
     @classmethod
     def setUp(self):
         try:
-            os.rename("file.json", "tmp")
+            os.rename("storage.json", "tmp")
         except IOError:
             pass
 
     def tearDown(self):
         try:
-            os.remove("file.json")
+            os.remove("storage.json")
         except IOError:
             pass
         try:
-            os.rename("tmp", "file.json")
+            os.rename("tmp", "storage.json")
         except IOError:
             pass
 
@@ -191,7 +191,7 @@ class TestPlace_save(unittest.TestCase):
         pl = Place()
         pl.save()
         plid = "Place." + pl.id
-        with open("file.json", "r") as f:
+        with open("storage.json", "r") as f:
             self.assertIn(plid, f.read())
 
 
