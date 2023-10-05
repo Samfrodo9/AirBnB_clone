@@ -15,7 +15,7 @@ from models.place import Place
 from models.review import Review
 
 
-class FileStorage:
+class FileStorage():
     """file storage class"""
 
     __file_path = "storage.json"
