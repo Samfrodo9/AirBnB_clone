@@ -37,7 +37,8 @@ class FileStorage:
         """serializes __objects to the JSON file"""
         with open(self.__file_path, "w", encoding="utf-8") as file_:
             # Convert objects to dictionaries before serializing
-            json_str = {key: obj.to_dict() for key, obj in self.__objects.items()}
+            see = self.__objects.items()
+            json_str = {key: obj.to_dict() for key, obj in see}
             dump(json_str, file_)
 
     def reload(self):
