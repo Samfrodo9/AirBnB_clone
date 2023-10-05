@@ -1,9 +1,8 @@
 #!/usr/bin/python3
-
 """A Module that defines a Base Class"""
 
-import models
 
+import models
 from uuid import uuid4
 from datetime import datetime
 
@@ -39,8 +38,7 @@ class BaseModel:
         return string
 
     def save(self):
-        """A method that updates 'updated at'
-        with the current datetime"""
+        """A method that updates last updated attribute"""
         self.updated_at = datetime.now()
         models.storage.new(self)
         models.storage.save()
