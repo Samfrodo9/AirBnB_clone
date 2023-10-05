@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-
 """
     this module contains an entry point for a command interpreter
 """
@@ -26,6 +25,8 @@ class HBNBCommand(cmd.Cmd):
     """
 
     prompt = "(hbnb) "
+
+    __classes = {"BaseModel", "User", "State", "City", "Place", "Amenity", "Review"}
 
     def do_quit(self, line):
         """handles the quit command"""
