@@ -164,6 +164,25 @@ class HBNBCommand(cmd.Cmd):
         except KeyError:
             print("** class doesn't exist **")
 
+    def do_all(self, arg):
+        """Retrieves instances by a class"""
+        args = arg.split()
+        if len(args) == 0:
+            print([str(value) for value in storage.all().values()])
+        elif args[0] not in self.__classes:
+            print("** class doesn't exist **")
+        elif len(args) == 1:
+            print(
+                [
+                    str(values)
+                    for keys, values in storage.all().items()
+                    if keys.startswith(args[0])
+                ]
+            )
+        else:
+            print("** Too many argument for all **")
+            pass
+
     def emptyline(self):
         """makes sure nothing is executed incase of an empty command"""
         pass
