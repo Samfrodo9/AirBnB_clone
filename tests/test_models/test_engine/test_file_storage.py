@@ -5,6 +5,8 @@ Unittest classes:
     TestFileStorage_instantiation
     TestFileStorage_methods
 """
+
+
 import os
 import json
 import models
@@ -22,7 +24,6 @@ from models.review import Review
 
 class TestFileStorage_instantiation(unittest.TestCase):
     """Unittests for testing instantiation of the FileStorage class."""
-
     def test_for_FileStorage_instantiation_no_args(self):
         self.assertEqual(type(FileStorage()), FileStorage)
 

@@ -235,6 +235,7 @@ create a new object/instance of <class-name>
         a different class'''
         pass
 
+
 class test_console_valid(unittest.TestCase):
     '''tests valis command syntax'''
     def setup(self):
@@ -248,6 +249,7 @@ class test_console_valid(unittest.TestCase):
             HBNBCommand().onecmd("update BaseModel get")
             output = f.getvalue()
             expect = "** no instance found **"
+
 
 if __name__ == '__main__':
     unittest.main()
