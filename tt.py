@@ -1,8 +1,5 @@
 #!/usr/bin/python3
-from models.engine.file_storage import FileStorage
+from models.user import User
 
-try:
-    print(type(FileStorage._FileStorage__file_path))
-except:
-    fs = FileStorage()
-    print(type(fs._FileStorage__file_path))
+print(type(User.email) is str)
+print(User.email == "")
