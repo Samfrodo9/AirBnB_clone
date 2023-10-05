@@ -114,7 +114,7 @@ class TestHBNBCommand_create(unittest.TestCase):
     @classmethod
     def setUp(self):
         try:
-            os.rename("file.json", "tmp")
+            os.rename("storage.json", "tmp")
         except IOError:
             pass
         FileStorage.__objects = {}
@@ -122,11 +122,11 @@ class TestHBNBCommand_create(unittest.TestCase):
     @classmethod
     def tearDown(self):
         try:
-            os.remove("file.json")
+            os.remove("storage.json")
         except IOError:
             pass
         try:
-            os.rename("tmp", "file.json")
+            os.rename("tmp", "storage.json")
         except IOError:
             pass
 
@@ -186,7 +186,7 @@ class TestHBNBCommand_show(unittest.TestCase):
     @classmethod
     def setUp(self):
         try:
-            os.rename("file.json", "tmp")
+            os.rename("storage.json", "tmp")
         except IOError:
             pass
         FileStorage.__objects = {}
@@ -194,11 +194,11 @@ class TestHBNBCommand_show(unittest.TestCase):
     @classmethod
     def tearDown(self):
         try:
-            os.remove("file.json")
+            os.remove("storage.json")
         except IOError:
             pass
         try:
-            os.rename("tmp", "file.json")
+            os.rename("tmp", "storage.json")
         except IOError:
             pass
 
@@ -436,7 +436,7 @@ class TestHBNBCommand_destroy(unittest.TestCase):
     @classmethod
     def setUp(self):
         try:
-            os.rename("file.json", "tmp")
+            os.rename("storage.json", "tmp")
         except IOError:
             pass
         FileStorage.__objects = {}
@@ -444,11 +444,11 @@ class TestHBNBCommand_destroy(unittest.TestCase):
     @classmethod
     def tearDown(self):
         try:
-            os.remove("file.json")
+            os.remove("storage.json")
         except IOError:
             pass
         try:
-            os.rename("tmp", "file.json")
+            os.rename("tmp", "storage.json")
         except IOError:
             pass
         storage.reload()
@@ -694,7 +694,7 @@ class TestHBNBCommand_all(unittest.TestCase):
     @classmethod
     def setUp(self):
         try:
-            os.rename("file.json", "tmp")
+            os.rename("storage.json", "tmp")
         except IOError:
             pass
         FileStorage.__objects = {}
@@ -702,11 +702,11 @@ class TestHBNBCommand_all(unittest.TestCase):
     @classmethod
     def tearDown(self):
         try:
-            os.remove("file.json")
+            os.remove("storage.json")
         except IOError:
             pass
         try:
-            os.rename("tmp", "file.json")
+            os.rename("tmp", "storage.json")
         except IOError:
             pass
 
@@ -840,7 +840,7 @@ class TestHBNBCommand_update(unittest.TestCase):
     @classmethod
     def setUp(self):
         try:
-            os.rename("file.json", "tmp")
+            os.rename("storage.json", "tmp")
         except IOError:
             pass
         FileStorage.__objects = {}
@@ -848,11 +848,11 @@ class TestHBNBCommand_update(unittest.TestCase):
     @classmethod
     def tearDown(self):
         try:
-            os.remove("file.json")
+            os.remove("storage.json")
         except IOError:
             pass
         try:
-            os.rename("tmp", "file.json")
+            os.rename("tmp", "storage.json")
         except IOError:
             pass
 
@@ -1435,7 +1435,7 @@ class TestHBNBCommand_count(unittest.TestCase):
     @classmethod
     def setUp(self):
         try:
-            os.rename("file.json", "tmp")
+            os.rename("storage.json", "tmp")
         except IOError:
             pass
         FileStorage._FileStorage__objects = {}
@@ -1443,11 +1443,11 @@ class TestHBNBCommand_count(unittest.TestCase):
     @classmethod
     def tearDown(self):
         try:
-            os.remove("file.json")
+            os.remove("storage.json")
         except IOError:
             pass
         try:
-            os.rename("tmp", "file.json")
+            os.rename("tmp", "storage.json")
         except IOError:
             pass
 
