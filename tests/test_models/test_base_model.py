@@ -73,7 +73,8 @@ class TestBaseModel_instantiations(unittest.TestCase):
     def test_init_with_kwargs(self):
         dateee = datetime.today()
         dateee_iso = dateee.isoformat()
-        bm = BaseModel(id="345678", created_at=dateee_iso, updated_at=dateee_iso)
+        bm = BaseModel(id="345678", created_at=dateee_iso,
+                       updated_at=dateee_iso)
         self.assertEqual(bm.id, "345678")
         self.assertEqual(bm.created_at, dateee)
         self.assertEqual(bm.updated_at, dateee)
@@ -85,7 +86,8 @@ class TestBaseModel_instantiations(unittest.TestCase):
     def test_init_with_args_and_kwargs(self):
         dateee = datetime.today()
         dateee_iso = dateee.isoformat()
-        bm = BaseModel("12", id="3456", created_at=dateee_iso, updated_at=dateee_iso)
+        bm = BaseModel("12", id="3456", created_at=dateee_iso,
+                       updated_at=dateee_iso)
         self.assertEqual(bm.id, "3456")
         self.assertEqual(bm.created_at, dateee)
         self.assertEqual(bm.updated_at, dateee)
