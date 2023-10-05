@@ -15,14 +15,11 @@ from models.place import Place
 from models.review import Review
 
 
-class FileStorage():
+class FileStorage:
     """file storage class"""
 
     __file_path = "storage.json"
     __objects = {}  # will store all objects by classname.id
-
-    def __init__(self):
-        """instance constructor"""
 
     def all(self):
         """returns the dictionary __objects"""
