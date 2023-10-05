@@ -13,7 +13,7 @@ class Test_console(unittest.TestCase):
         with patch("sys.stdout", new=StringIO()) as f:
             HBNBCommand().onecmd("help")  # execute the help command
             output = f.getvalue()  # get the captured value as a string
-            
+
             expect = "Documented commands (type help <topic>):\n========================================\nEOF  help  quit\n"
 
         # Remove any trailing whitespace, including newlines, for comparison
