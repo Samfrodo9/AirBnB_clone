@@ -32,6 +32,9 @@ class HBNBCommand(cmd.Cmd):
         '''provides information about the EOF command'''
         print("EOF quits the program at end of file\n")
 
+    def help_emptyline(self):
+        '''provides info about an emptyline cmd'''
+        print("Emptyline makes sure nothing is executed incase of an empty command")
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
