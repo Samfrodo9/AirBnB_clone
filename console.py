@@ -1,8 +1,13 @@
 #!/usr/bin/python3
+
 '''
     this module contains an entry point for a command interpreter
 '''
 
+
+from inspect import isclass
+from models import storage
+from models.base_model import BaseModel
 import cmd
 class HBNBCommand(cmd.Cmd):
     '''
@@ -17,6 +22,77 @@ class HBNBCommand(cmd.Cmd):
     def do_EOF(self, line):
         '''handles the end of file condition'''
         return True
+
+    def do_create(self, arg):
+        '''Creates a new instance of a class  class_name'''
+        args = arg.split()
+
+        if not args:
+            print("** class name missing **")
+        else:
+            class_name = args[0]
+            try:
+                class_ = globals()[class_name]
+                new = class_()
+                new.save()
+                print(new.id)
+            except KeyError:
+                print("** class doesn't exist **")
+
+
+    def do_show(self, arg):
+        '''Prints the string representation of an instance'''
+        args = arg.split()
+        if not args:
+            print("** class name missing **")
+
+        else:
+            class_name = args[0]
+            try:
+                class_ = globals()[class_name]
+                if len(args) == 1:
+                    print("** instance id missing **")
+                else:
+                    _id = args[1]
+                    storage.reload()
+                    key = str(class_name) + "." + str(_id)
+                    objects_ = storage.all()
+                    print("========================================")
+                    print(objects_)
+                    print("========================================")
+                    if key in objects_.keys():
+                        print(objects_[key])
+                    else:
+                        print("** no instance found **")
+            except KeyError:
+                print("** class doesn't exist **")
+
+
+    def do_destroy(self, arg):
+        '''Deletes an instance based on the class name and id'''
+        args = arg.split()
+        if not args:
+            print("** class name missing **")
+
+        else:
+            class_name = args[0]
+            try:
+                class_ = globals()[class_name]
+                if len(args) == 1:
+                    print("** instance id missing **")
+                else:
+                    _id = args[1]
+                    storage.reload()
+                    key = str(class_name) + "." + str(_id)
+                    objects_ = storage.all()
+
+                    if key in objects_.keys():
+                        del objects_[key]
+                        storage.save()
+                    else:
+                        print("** no instance found **")
+            except KeyError:
+                print("** class doesn't exist **")
 
     def emptyline(self):
         '''makes sure nothing is executed incase of an empty command'''
