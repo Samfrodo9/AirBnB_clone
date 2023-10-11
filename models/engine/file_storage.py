@@ -37,7 +37,7 @@ class FileStorage:
         if isfile(filename):
             with open(filename, 'r', encoding="utf-8") as file_:
                 line = file_.readline()
-            __objects = loads(line)
+            self.__objects = loads(line)
 
         else:
             pass
