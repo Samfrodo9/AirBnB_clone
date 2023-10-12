@@ -8,6 +8,7 @@
 from inspect import isclass
 from models import storage
 from models.base_model import BaseModel
+from json import loads, dumps
 import cmd
 class HBNBCommand(cmd.Cmd):
     '''
@@ -61,7 +62,10 @@ class HBNBCommand(cmd.Cmd):
                     print(objects_)
                     print("========================================")
                     if key in objects_.keys():
-                        print(objects_[key])
+                        objects_cp = objects_[key]
+                        del objects_cp["__class__"]
+                        _str_ = "[{}] ({}) {}".format(class_name, _id, objects_cp)
+                        print(_str_)
                     else:
                         print("** no instance found **")
             except KeyError:
@@ -100,6 +104,7 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             storage.reload()
             objects_ = storage.all()
+            list_ = []
             for key, value in objects_.items():
                 name = value["__class__"]
                 id_ = value["id"]
@@ -114,23 +119,63 @@ class HBNBCommand(cmd.Cmd):
                 objects_cp = value
                 del objects_cp["__class__"]
                 _str_ = "[{}] ({}) {}".format(name, id_, objects_cp)
-                print(_str_)
+                list_.append(_str_)
+            print(list_)
         else:
             class_name = args[0]
             try:
                 class_ = globals()[class_name]
                 storage.reload()
                 objects_ = storage.all()
+                list_ = []
                 for key, value in objects_.items():
                     if value["__class__"] == class_name:
                         id_ = value["id"]
                         objects_cp = value
                         del objects_cp["__class__"]
                         _str_ = "[{}] ({}) {}".format(class_name, id_, objects_cp)
-                        print(_str_)
+                        list_.append(_str_)
+                print(list_)
                 
             except KeyError:
                 print("** class doesn't exist **")
+
+
+    def do_update(self, arg):
+        '''
+        Updates an instance based on the class name and id
+        by adding or updating attribute (save the change into the JSON file
+        '''
+        args = arg.split()
+        if not args:
+            print("** class name missing **")
+            return(self.cmdloop())
+        class_name = args[0]
+        try:
+            class_ = globals()[class_name]
+            if len(args) == 1:
+                print("** instance id missing **")
+                return(self.cmdloop())
+            id_ = args[1]
+            storage.reload()
+            objects_ = storage.all()
+            key = "{}.{}".format(class_name, id_)
+            if key not in objects_.keys():
+                print("** no instance found **")
+                return(self.cmdloop())
+            if len(args) == 2:
+                print("** attribute name missing **")
+                return(self.cmdloop())
+            if len(args) == 3:
+                print("** value missing **")
+                return(self.cmdloop())
+            this_key = args[2]
+            this_value = loads(args[3])
+            (objects_[key])[this_key] = this_value
+            storage.save()
+
+        except KeyError:
+            print("** class doesn't exist **")
 
 
     def emptyline(self):
