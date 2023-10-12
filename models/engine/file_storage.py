@@ -20,7 +20,25 @@ class FileStorage:
     def new(self, obj):
         '''sets in __objects the obj with key <obj classname.id'''
         key = str(obj.__class__.__name__) + "." + str(obj.id)
-        self.__objects[key] = obj.to_dict() #do something
+        if obj.__class__.__name__ == "User":
+            attributes = {}
+            attributes['__class__'] = self.__class__.__name__
+            for key, value in self.__dict__.items():
+                if isinstance(value, datetime):
+                    if value == "":
+                        continue
+                    else:
+                        attributes[key] = value.isoformat()
+                else:
+                    if value == "":
+                        continue
+                    else:
+                        attributes[key] = value
+
+            return attributes
+            self.__objects[key] = attributes
+        else:
+            self.__objects[key] = obj.to_dict() # do something
 
     def save(self):
         '''serializes __objects to the JSON file'''
@@ -31,7 +49,7 @@ class FileStorage:
 
     def reload(self):
         '''deserializes the JSON file to __objects
-        if the file doesnot exist do nothing'''
+        if the file does not exist do nothing'''
 
         filename = self.__file_path
         if isfile(filename):

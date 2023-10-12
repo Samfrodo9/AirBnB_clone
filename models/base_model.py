@@ -18,7 +18,8 @@ class BaseModel:
                     continue
                 if key in ('created_at', 'updated_at'):
                     # value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f") This will also work
-                    value = datetime.fromisoformat(value)  # Parse ISO format datetime
+                    value = datetime.fromisoformat(
+                        value)  # Parse ISO format datetime
                 setattr(self, key, value)
         else:
             self.id = str(uuid4())
@@ -51,4 +52,3 @@ class BaseModel:
                 attributes[key] = value
 
         return attributes
-
