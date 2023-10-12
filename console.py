@@ -103,8 +103,16 @@ class HBNBCommand(cmd.Cmd):
             for key, value in objects_.items():
                 name = value["__class__"]
                 id_ = value["id"]
-                objects_cp = objects_
-                del objects_cp[__class__]
+                '''
+                since the dict in our storage is gotten
+                from to_dict
+                it contains an attribute __class__ 
+                which we do not want in our instance string
+                so we make a copy of the dictionary 
+                and delete the class attribute
+                '''
+                objects_cp = value
+                del objects_cp["__class__"]
                 _str_ = "[{}] ({}) {}".format(name, id_, objects_cp)
                 print(_str_)
         else:
@@ -116,9 +124,8 @@ class HBNBCommand(cmd.Cmd):
                 for key, value in objects_.items():
                     if value["__class__"] == class_name:
                         id_ = value["id"]
-                        objects_cp = objects_
-                        objects_cp = objects_
-                        del objects_cp[__class__]
+                        objects_cp = value
+                        del objects_cp["__class__"]
                         _str_ = "[{}] ({}) {}".format(class_name, id_, objects_cp)
                         print(_str_)
                 
