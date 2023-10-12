@@ -94,6 +94,38 @@ class HBNBCommand(cmd.Cmd):
             except KeyError:
                 print("** class doesn't exist **")
 
+    def do_all(self, arg):
+        '''Prints all string representation of all instances based or not on the'''
+        args = arg.split()
+        if not args:
+            storage.reload()
+            objects_ = storage.all()
+            for key, value in objects_.items():
+                name = value["__class__"]
+                id_ = value["id"]
+                objects_cp = objects_
+                del objects_cp[__class__]
+                _str_ = "[{}] ({}) {}".format(name, id_, objects_cp)
+                print(_str_)
+        else:
+            class_name = args[0]
+            try:
+                class_ = globals()[class_name]
+                storage.reload()
+                objects_ = storage.all()
+                for key, value in objects_.items():
+                    if value["__class__"] == class_name:
+                        id_ = value["id"]
+                        objects_cp = objects_
+                        objects_cp = objects_
+                        del objects_cp[__class__]
+                        _str_ = "[{}] ({}) {}".format(class_name, id_, objects_cp)
+                        print(_str_)
+                
+            except KeyError:
+                print("** class doesn't exist **")
+
+
     def emptyline(self):
         '''makes sure nothing is executed incase of an empty command'''
         pass
