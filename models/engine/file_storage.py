@@ -39,5 +39,6 @@ class FileStorage:
                 line = file_.readline()
             self.__objects = loads(line)
 
+
         else:
             pass

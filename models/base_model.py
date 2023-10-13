@@ -51,4 +51,3 @@ class BaseModel:
                 attributes[key] = value
 
         return attributes
-
