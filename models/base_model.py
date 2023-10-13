@@ -2,7 +2,8 @@
 
 """A Module that defines a Base Class"""
 
-from models.__init__ import storage
+import models
+
 from uuid import uuid4
 from datetime import datetime
 
@@ -18,13 +19,14 @@ class BaseModel:
                     continue
                 if key in ('created_at', 'updated_at'):
                     # value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f") This will also work
-                    value = datetime.fromisoformat(value)  # Parse ISO format datetime
+                    value = datetime.fromisoformat(
+                        value)  # Parse ISO format datetime
                 setattr(self, key, value)
         else:
             self.id = str(uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
-            storage.new(self)
+            models.storage.new(self)
 
     def __str__(self):
         """A string representation of the Base Model class"""
@@ -37,8 +39,8 @@ class BaseModel:
     def save(self):
         """A method that updates 'updated at' with the current datetime"""
         self.updated_at = datetime.now()
-        storage.new(self)
-        storage.save()
+        models.storage.new(self)
+        models.storage.save()
 
     def to_dict(self):
         """A module that returns a dictionary containing key/value of obj instance"""

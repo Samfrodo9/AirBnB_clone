@@ -58,14 +58,9 @@ class HBNBCommand(cmd.Cmd):
                     storage.reload()
                     key = str(class_name) + "." + str(_id)
                     objects_ = storage.all()
-                    print("========================================")
-                    print(objects_)
-                    print("========================================")
+
                     if key in objects_.keys():
-                        objects_cp = objects_[key]
-                        del objects_cp["__class__"]
-                        _str_ = "[{}] ({}) {}".format(class_name, _id, objects_cp)
-                        print(_str_)
+                        print(objects_[key])
                     else:
                         print("** no instance found **")
             except KeyError:
@@ -106,20 +101,7 @@ class HBNBCommand(cmd.Cmd):
             objects_ = storage.all()
             list_ = []
             for key, value in objects_.items():
-                name = value["__class__"]
-                id_ = value["id"]
-                '''
-                since the dict in our storage is gotten
-                from to_dict
-                it contains an attribute __class__ 
-                which we do not want in our instance string
-                so we make a copy of the dictionary 
-                and delete the class attribute
-                '''
-                objects_cp = value
-                del objects_cp["__class__"]
-                _str_ = "[{}] ({}) {}".format(name, id_, objects_cp)
-                list_.append(_str_)
+                list_.append(value.__str__())
             print(list_)
         else:
             class_name = args[0]
@@ -129,12 +111,7 @@ class HBNBCommand(cmd.Cmd):
                 objects_ = storage.all()
                 list_ = []
                 for key, value in objects_.items():
-                    if value["__class__"] == class_name:
-                        id_ = value["id"]
-                        objects_cp = value
-                        del objects_cp["__class__"]
-                        _str_ = "[{}] ({}) {}".format(class_name, id_, objects_cp)
-                        list_.append(_str_)
+                        list_.append(value.__str__())
                 print(list_)
                 
             except KeyError:
@@ -149,30 +126,31 @@ class HBNBCommand(cmd.Cmd):
         args = arg.split()
         if not args:
             print("** class name missing **")
-            return(self.cmdloop())
+            return
         class_name = args[0]
         try:
             class_ = globals()[class_name]
             if len(args) == 1:
                 print("** instance id missing **")
-                return(self.cmdloop())
+                return
             id_ = args[1]
             storage.reload()
             objects_ = storage.all()
             key = "{}.{}".format(class_name, id_)
             if key not in objects_.keys():
                 print("** no instance found **")
-                return(self.cmdloop())
+                return
             if len(args) == 2:
                 print("** attribute name missing **")
-                return(self.cmdloop())
+                return
             if len(args) == 3:
                 print("** value missing **")
-                return(self.cmdloop())
+                return
             this_key = args[2]
             this_value = loads(args[3])
-            (objects_[key])[this_key] = this_value
-            storage.save()
+            to_update = objects_[key]
+            to_update.__dict__[this_key] = this_value
+            to_update.save()
 
         except KeyError:
             print("** class doesn't exist **")
