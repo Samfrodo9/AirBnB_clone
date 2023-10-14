@@ -8,8 +8,16 @@
 from inspect import isclass
 from models import storage
 from models.base_model import BaseModel
+from models.user import User
+from models.city import City
+from models.state import State
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 from json import loads, dumps
 import cmd
+import sys
+
 class HBNBCommand(cmd.Cmd):
     '''
     this is a class defines the CI
@@ -91,7 +99,7 @@ class HBNBCommand(cmd.Cmd):
                     else:
                         print("** no instance found **")
             except KeyError:
-                print("** class doesn't exist **")
+                                print("** class doesn't exist **")
 
     def do_all(self, arg):
         '''Prints all string representation of all instances based or not on the'''
@@ -169,6 +177,21 @@ class HBNBCommand(cmd.Cmd):
     def help_EOF(self):
         '''provides information about the EOF command'''
         print("EOF quits the program at end of file\n")
+
+    def help_create(self):
+        '''provides information about the quit command'''
+
+    def help_update(self):
+        '''provides information about the update command'''
+
+    def help_show(self):
+        '''provides information about the show command'''
+
+    def help_all(self):
+        '''provides information about the all command'''
+
+    def help_destroy(self):
+        '''provides information about the destroy command'''
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
