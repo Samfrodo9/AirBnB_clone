@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 
-'''
+"""
     this module contains an entry point for a command interpreter
-'''
+"""
 
 
 from inspect import isclass
@@ -18,22 +18,25 @@ from json import loads, dumps
 import cmd
 import sys
 
+
 class HBNBCommand(cmd.Cmd):
-    '''
+    """
     this is a class defines the CI
     It inherits from class Cmd int the cmd module
-    '''
+    """
+
     prompt = "(hbnb) "
+
     def do_quit(self, line):
-        '''handles the quit command'''
+        """handles the quit command"""
         return True
 
     def do_EOF(self, line):
-        '''handles the end of file condition'''
+        """handles the end of file condition"""
         return True
 
     def do_create(self, arg):
-        '''Creates a new instance of a class  class_name'''
+        """Creates a new instance of a class  class_name"""
         args = arg.split()
 
         if not args:
@@ -48,9 +51,8 @@ class HBNBCommand(cmd.Cmd):
             except KeyError:
                 print("** class doesn't exist **")
 
-
     def do_show(self, arg):
-        '''Prints the string representation of an instance'''
+        """Prints the string representation of an instance"""
         args = arg.split()
         if not args:
             print("** class name missing **")
@@ -74,9 +76,8 @@ class HBNBCommand(cmd.Cmd):
             except KeyError:
                 print("** class doesn't exist **")
 
-
     def do_destroy(self, arg):
-        '''Deletes an instance based on the class name and id'''
+        """Deletes an instance based on the class name and id"""
         args = arg.split()
         if not args:
             print("** class name missing **")
@@ -99,10 +100,11 @@ class HBNBCommand(cmd.Cmd):
                     else:
                         print("** no instance found **")
             except KeyError:
-                                print("** class doesn't exist **")
+                print("** class doesn't exist **")
 
     def do_all(self, arg):
-        '''Prints all string representation of all instances based or not on the'''
+        """Prints all string representation of all
+        instances based or not on the"""
         args = arg.split()
         if not args:
             storage.reload()
@@ -119,18 +121,17 @@ class HBNBCommand(cmd.Cmd):
                 objects_ = storage.all()
                 list_ = []
                 for key, value in objects_.items():
-                        list_.append(value.__str__())
+                    list_.append(value.__str__())
                 print(list_)
-                
+
             except KeyError:
                 print("** class doesn't exist **")
 
-
     def do_update(self, arg):
-        '''
+        """
         Updates an instance based on the class name and id
         by adding or updating attribute (save the change into the JSON file
-        '''
+        """
         args = arg.split()
         if not args:
             print("** class name missing **")
@@ -163,35 +164,35 @@ class HBNBCommand(cmd.Cmd):
         except KeyError:
             print("** class doesn't exist **")
 
-
     def emptyline(self):
-        '''makes sure nothing is executed incase of an empty command'''
+        """makes sure nothing is executed incase of an empty command"""
         pass
 
-    #help section update for each command
+    # help section update for each command
     def help_quit(self):
-        '''provides information about the quit command'''
-        #print("\nquit\nquits the CI")
+        """provides information about the quit command"""
+        # print("\nquit\nquits the CI")
         print("Quit command to exit the program\n")
 
     def help_EOF(self):
-        '''provides information about the EOF command'''
+        """provides information about the EOF command"""
         print("EOF quits the program at end of file\n")
 
     def help_create(self):
-        '''provides information about the quit command'''
+        """provides information about the quit command"""
 
     def help_update(self):
-        '''provides information about the update command'''
+        """provides information about the update command"""
 
     def help_show(self):
-        '''provides information about the show command'''
+        """provides information about the show command"""
 
     def help_all(self):
-        '''provides information about the all command'''
+        """provides information about the all command"""
 
     def help_destroy(self):
-        '''provides information about the destroy command'''
+        """provides information about the destroy command"""
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     HBNBCommand().cmdloop()
