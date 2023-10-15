@@ -1,11 +1,12 @@
 #!/usr/bin/python3
-'''console test module'''
+"""console test module"""
 
 from unittest.mock import patch
 from io import StringIO
 import sys
 from console import HBNBCommand
 import unittest
+
 
 class Test_console(unittest.TestCase):
     def test_help(self):
