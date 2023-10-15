@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-
 """
     this module contains an entry point for a command interpreter
 """
@@ -14,7 +13,7 @@ from models.state import State
 from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
-from json import loads, dumps
+from json import loads, dumps, decoder
 import cmd
 import sys
 
@@ -26,6 +25,9 @@ class HBNBCommand(cmd.Cmd):
     """
 
     prompt = "(hbnb) "
+
+    # __classes = {"BaseModel", "User", "State",
+    # "City", "Place", "Amenity", "Review"}
 
     def do_quit(self, line):
         """handles the quit command"""
@@ -105,9 +107,9 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             storage.reload()
             objects_ = storage.all()
-
+            list_ = []
             for key, value in objects_.items():
-                list_.append(value)
+                list_.append(value.__str__())
             print(list_)
         else:
             class_name = args[0]
@@ -117,7 +119,8 @@ class HBNBCommand(cmd.Cmd):
                 objects_ = storage.all()
                 list_ = []
                 for key, value in objects_.items():
-                    list_.append(value.__str__())
+                    if key.startswith(class_name):
+                        list_.append(value.__str__())
                 print(list_)
 
             except KeyError:
@@ -152,14 +155,16 @@ class HBNBCommand(cmd.Cmd):
                 print("** value missing **")
                 return
             this_key = args[2]
-            this_value = loads(args[3])
+            try:
+                this_value = loads(args[3])
+            except decoder.JSONDecodeError as e:
+                this_value = args[3]
             to_update = objects_[key]
             to_update.__dict__[this_key] = this_value
             to_update.save()
 
         except KeyError:
             print("** class doesn't exist **")
-
 
     def default(self, arg):
         args = arg.split('.')
@@ -195,15 +200,12 @@ class HBNBCommand(cmd.Cmd):
                         self.do_update(f"{args[0]} {id_} {key} {value}")
                 else:
                     args_ = args_[0].split(', ')
-
                     id_ = args_[0].strip('"')
                     this_key = args_[1].strip('"')
                     this_value = args_[2].strip('"')
                     self.do_update(f"{args[0]} {id_} {this_key} {this_value}")
         except KeyError:
             return cmd.Cmd.default(self, arg)
-
-
 
     def emptyline(self):
         """makes sure nothing is executed incase of an empty command"""

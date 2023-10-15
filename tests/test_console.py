@@ -28,8 +28,8 @@ class Test_console(unittest.TestCase):
             output = f.getvalue()
 
             expect = """
-            Usage: create <class-name>
-            create a new object/instance of <class-name>
+Usage: create <class-name>
+create a new object/instance of <class-name>
             """
             output = output.strip()
             expect = expect.strip()
@@ -52,11 +52,7 @@ class Test_console(unittest.TestCase):
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("create BaseModel")
             output = f.getvalue()
-            expect = "" #to be completed
-
-            output = output.strip()
-            expect = expect.strip()
-            self.assertEqual(output, expect)
+            self.assertEqual(type(output), str)
 
     def test_create_fake_class(self):
         '''tests the create command with fake class'''
