@@ -4,6 +4,8 @@
 from unittest.mock import patch
 from io import StringIO
 import sys
+from models import storage
+from models.engine.file_storage import FileStorage
 from console import HBNBCommand
 import unittest
 
@@ -233,6 +235,19 @@ create a new object/instance of <class-name>
         a different class'''
         pass
 
+class test_console_valid(unittest.TestCase):
+    '''tests valis command syntax'''
+    def setup(self):
+        '''set up config'''
+        file_ = storage.__file_path
+        with open(file_, 'w', encoding="utf-8") as f:
+            f.write("")
+
+    def test_create_valid(self):
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("update BaseModel get")
+            output = f.getvalue()
+            expect = "** no instance found **"
 
 if __name__ == '__main__':
     unittest.main()

@@ -20,7 +20,6 @@ class FileStorage:
 
     __file_path = "storage.json"
     __objects = {}  # will store all objects by classname.id
-
     def all(self):
         """returns the dictionary __objects"""
         return self.__objects
