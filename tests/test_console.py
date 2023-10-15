@@ -11,9 +11,12 @@ import unittest
 class Test_console(unittest.TestCase):
     def test_help(self):
         with patch('sys.stdout', new=StringIO()) as f:
-            HBNBCommand().onecmd("help") # execute the help command
-            output = f.getvalue() # get the captured value as a string
-            expect = 'Documented commands (type help <topic>):\n========================================\nEOF  all  create  destroy  help  quit  show  update\n'
+            HBNBCommand().onecmd("help")  # execute the help command
+            output = f.getvalue()  # get the captured value as a string
+            expect = '''
+Documented commands (type help <topic>):
+========================================
+EOF  all  create  destroy  help  quit  show  update\n'''
 
         # Remove any trailing whitespace, including newlines, for comparison
         output = output.strip()
@@ -122,7 +125,8 @@ create a new object/instance of <class-name>
 
     def test_destroy(self):
         '''tests destroy with correct syntax
-        make a test class to set up where you delete the storage class create a class the destroy
+        make a test class to set up where you delete the
+        storage class create a class the destroy
         '''
         pass
 
@@ -196,7 +200,6 @@ create a new object/instance of <class-name>
             output = output.strip()
             expect = expect.strip()
             self.assertEqual(output, expect)
-
 
     def test_update_fakeclass(self):
         '''tests update with a fake class'''

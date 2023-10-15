@@ -8,5 +8,5 @@ from models.base_model import BaseModel
 class City(BaseModel):
     """A city class definition"""
 
-    state_id = ""
-    name = ""
+    state_id: str = ""
+    name: str = ""
