@@ -6,7 +6,7 @@ footer {
 	/*display: flex;* if using flex/
 	/*align-items: center; for vertical alignment */
 	/*justify-content: center;*/
-	place-items: center;
+	place-items: center; /*We use this with grid display */
 	position: absolute;
 	bottom: 0;
 }
