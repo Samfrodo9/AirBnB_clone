@@ -1,0 +1,15 @@
+footer {
+	background-color: #FF0000;
+	height: 60px;
+	width: 100%;
+	display: grid;
+	/*display: flex;* if using flex/
+	/*align-items: center; for vertical alignment */
+	/*justify-content: center;*/
+	place-items: center;
+	position: absolute;
+	bottom: 0;
+}
+p {
+	color: blue;
+}
